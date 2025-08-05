@@ -72,12 +72,7 @@ export function SearchForm() {
             </a>{' '}
             et bénéficiez de toutes les fonctionnalités.
           </p>
-          <p className="text-gray-600">
-            <a href="./registerAnnonceur" className="text-blue-600 hover:text-blue-700 underline">
-              Créer un compte pour publier des offres
-            </a>{' '}
-            et bénéficiez de toutes les fonctionnalités de suivi de vos publications.
-          </p>
+       
         </div>
       </div>
     </section>

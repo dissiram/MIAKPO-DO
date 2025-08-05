@@ -17,7 +17,7 @@ export default {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-         violetPerso: '#430475',
+        violetPerso: '#430475',
 
         card: {
           DEFAULT: 'hsl(var(--card))',

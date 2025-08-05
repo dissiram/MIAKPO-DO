@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/logo.svg';
+import {Link} from 'react-router-dom';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,16 +17,16 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-gray-700 hover:text-blue-600">Demandeurs</a>
-            <a href="#" className="text-gray-700 hover:text-blue-600">Centre d'aide</a>
-            <a href="#" className="text-blue-600 hover:text-blue-700">S'identifier</a>
-            <a href="#" className="text-blue-600 hover:text-blue-700">S'enregistrer</a>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6">Créer une offre</Button>
+            <a href="/Demandeurs" className="text-gray-700 hover:text-blue-600">Demandeurs</a>
+            <a href="/Aide" className="text-gray-700 hover:text-blue-600">Centre d'aide</a>
+            <a href="/login" className="text-blue-600 hover:text-blue-700">S'identifier</a>
+            <a href="/register" className="text-blue-600 hover:text-blue-700">S'enregistrer</a>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6"> <Link to="/CreerOffres" className="text-white">Créer une offre</Link> </Button>
           </nav>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 focus:outline-none">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 bg-blue-600 focus:outline-none">
               {/* Icône burger */}
               <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -39,11 +40,11 @@ export function Header() {
         {/* Mobile Menu (affiché si ouvert) */}
         {isOpen && (
           <div className="md:hidden  space-y-5  text-center">
-            <a href="#" className="block text-gray-700 hover:text-blue-600">Demandeurs</a>
-            <a href="#" className="block text-gray-700 hover:text-blue-600">Centre d'aide</a>
-            <a href="#" className="block text-blue-600 hover:text-blue-700">S'identifier</a>
-            <a href="#" className="block text-blue-600 hover:text-blue-700">S'enregistrer</a>
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Créer une offre</Button>
+            <a href="/Demandeurs" className="block text-gray-700 hover:text-blue-600">Demandeurs</a>
+            <a href="/Aide" className="block text-gray-700 hover:text-blue-600">Centre d'aide</a>
+            <a href="/login" className="block text-blue-600 hover:text-blue-700">S'identifier</a>
+            <a href="/register" className="block text-blue-600 hover:text-blue-700">S'enregistrer</a>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6"> <Link to="/CreerOffres" className='text-white'>Créer une offre</Link> </Button>
           </div>
         )}
       </div>

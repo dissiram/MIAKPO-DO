@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { ProgressIndicator } from '@/components/ProgressIndicator';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
   const [form, setForm] = useState({
@@ -18,13 +22,39 @@ const Register: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Ajouter la logique d'inscription
+    setError("");
+    setSuccess("");
+    if (!form.terms) {
+      setError("Vous devez accepter les conditions d'utilisation.");
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
+      if (auth.currentUser && form.name) {
+        await updateProfile(auth.currentUser, { displayName: form.name });
+      }
+      setSuccess("Compte créé avec succès ! Vous pouvez vous connecter.");
+      setForm({ name: "", email: "", password: "", terms: false });
+      navigate("/choisirRole");
+    } catch (err: any) {
+      setError(err.message || "Erreur lors de la création du compte");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+       
+    <div className="mt-10">
+       {/* Progress Indicator */}
+              <ProgressIndicator currentStep={1} totalSteps={2} />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
         <h1 className="text-3xl font-bold mb-8 text-center">Creer un compte</h1>
         <form
@@ -84,21 +114,24 @@ const Register: React.FC = () => {
             </label>
           </div>
           
+          {error && <div className="text-red-600 text-sm text-center">{error}</div>}
+          {success && <div className="text-green-600 text-sm text-center">{success}</div>}
           <div className="flex justify-center">
             <Button
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-white px-8"
             >
-              Creer mon compte
+              Créer mon compte
             </Button>
           </div>
-          
           <p className="text-center text-sm mt-2">
-            Avez vous deja un compte?{' '}
+            Avez-vous déjà un compte?{' '}
             <a href="/login" className="text-blue-600 font-semibold hover:underline">S'identifier</a>
           </p>
+          
         </form>
       </div>
+    </div>
     </div>
   );
 };
